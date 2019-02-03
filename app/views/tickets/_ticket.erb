@@ -1,0 +1,11 @@
+<tr>
+  <td><%= ticket_presenter.author %></td>
+  <td><%= link_to ticket.title, ticket_path(id: ticket.id) %></td>
+  <td><%= ticket_presenter.department_name %></td>
+  <td><%= ticket_presenter.last_response %></td>
+  <td>
+    <div class="<%= ticket.status.name %>">
+        <%= ticket_presenter.status %>
+    </div>
+  </td>
+</tr>

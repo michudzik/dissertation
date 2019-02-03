@@ -1,0 +1,28 @@
+<div class="container">
+  <h1 class="my-3">Search results</h1>
+
+  <section class="row">
+    <div class="col-md-4">
+      <%= render 'search_engine' %>
+    </div>
+  </section>
+
+  <table class="mt-3 table table-hover">
+    <thead>
+      <tr>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Department</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tickets.zip(@ticket_presenters).each do |ticket, ticket_presenter| %>
+          <%= render 'ticket', ticket_presenter: ticket_presenter, ticket: ticket %>
+      <% end %>
+      <% unless @tickets.any? %>
+        <tr><td colspan="4">Your query did not match any results</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

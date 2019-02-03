@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tickets</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'cable' %>
+
+    <%= action_cable_meta_tag %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  </head>
+
+  <body>
+    <div class="row main-container">
+      <div class="col-md-2">
+        <%= render 'layouts/partials/navbar' %>
+      </div>
+      <div class="col-md-10">
+        <%= render 'layouts/partials/flash' %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

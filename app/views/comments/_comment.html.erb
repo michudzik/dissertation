@@ -1,0 +1,31 @@
+<div align="<%= align %>" data-comment-id="<%= comment.id %>">
+  <div class="comments-section <% if align == 'right' %>darker<% end %> p-2 w-75">
+    <div class="time-<%= align %>">
+      <a data-toggle="tooltip" title="<%= comment_presenter.created_at_tooltip %>">
+        <div class="time-<%= align %>">
+          <%= comment_presenter.created_at %>
+        </div>
+      </a>
+      &emsp;
+    </div>
+    <div align="left">
+      <b class="commenter-name"><%= comment_presenter.author %></b>
+      &emsp;
+      <br />
+      <%= sanitize comment_presenter.body %>
+    </div>
+    <% if comment.uploads.attached? %>
+    <br />
+      <table>
+        <thead align="left">
+          <tr>
+            <th>Attachements:</th>
+          </tr>
+        </thead>
+        <% comment.uploads.each_with_index do |upload, i| %>
+          <tr><td align="left"><%= link_to("#{upload.filename}", rails_blob_path(upload, disposition: "attachment")) %></td></tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>

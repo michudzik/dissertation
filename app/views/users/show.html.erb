@@ -1,0 +1,63 @@
+<div class="container">
+  <script>
+  $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
+  <h1 class="my-3">My tickets</h1>
+  <section class="row">
+    <article class="nav flex-column col-md-2">
+      <a class="nav-link disabled" href="#">Results</a>
+      <%= link_to '10', user_dashboard_path(number: 10), class: 'nav-link' %>
+      <%= link_to '30', user_dashboard_path(number: 30), class: 'nav-link' %>
+      <%= link_to '50', user_dashboard_path(number: 50), class: 'nav-link' %>
+    </article>
+  </section>
+
+      <table class="mt-3 table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Status</th>
+            <th scope="col">Last response</th>
+            <th scope="col">Recent comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tickets.zip(@ticket_presenters).each do |ticket, ticket_presenter| %>
+            <tr>
+              <td><%= link_to ticket.title, ticket_path(id: ticket.id) %></td>
+              <td>
+                <div class="<%= ticket.status.name %>">
+                  <%= ticket_presenter.status %>
+                </div>
+              </td>
+              <td><%= ticket_presenter.last_response %></td>
+              <td>
+                <% if ticket.comments.any? %>
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      See comments
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <% ticket.comments.last(6).reverse_each do |comment| %>
+                        <a class="dropdown-item-text" data-toggle="tooltip">
+                          <b><%= "#{comment.user.fullname} (#{comment.user.role.name.humanize})" %></b>
+                          <br/>
+                          <%= "(#{comment.created_at}): #{comment.body.truncate(40, omission: '... (continued)')}" %>
+                        </a>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% if @tickets.any? %>
+      <div>
+        <%= will_paginate @tickets, :container => false %>
+      </div>
+    <% end %>
+</div>

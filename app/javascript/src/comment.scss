@@ -1,0 +1,43 @@
+.comment-right {
+	float: right;
+}
+.comment-left {
+	float: left;
+}
+
+.comments-section {
+	text-align: left;
+	word-wrap: break-word;
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 15px 0;
+}
+
+.darker {
+	text-align: right;
+	word-wrap: break-word;
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.time-right {
+  float: left;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+.commenter-name {
+	color: #999
+}
+

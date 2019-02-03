@@ -1,0 +1,56 @@
+<div class="container">
+  <h1 class="my-3">Users</h1>
+
+  <section class="row">
+    <article class="nav flex-column col-md-2">
+      <a class="nav-link disabled" href="#">Results</a>
+      <%= link_to '10', users_path(number: 10, filter_param: params[:filter_param], sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to '30', users_path(number: 30, filter_param: params[:filter_param], sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to '50', users_path(number: 50, filter_param: params[:filter_param], sorted_by: params[:sorted_by]), class: 'nav-link' %>
+    </article>
+
+    <article class="nav flex-column col-md-2">
+      <a class="nav-link disabled" href="#">Filter</a>
+      <%= link_to 'All', users_path(number: params[:number], filter_param: "all", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to 'Locked', users_path(number: params[:number], filter_param: "locked", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to 'Unlocked', users_path(number: params[:number], filter_param: "unlocked", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+    </article>
+  </section>
+
+  <table class="mt-3 table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Name
+          <%= link_to users_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "last_name_desc") do %>
+            <i class="fas fa-caret-up"></i>
+          <% end %>
+          <%= link_to users_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "last_name_asc") do %>
+            <i class="fas fa-caret-down"></i>
+          <% end %>
+        </th>
+        <th>
+          Email
+          <%= link_to users_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "email_desc") do %>
+            <i class="fas fa-caret-up"></i>
+          <% end %>
+          <%= link_to users_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "email_asc") do %>
+            <i class="fas fa-caret-down"></i>
+          <% end %>
+        </th>
+        <th>Change role</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <%= render 'user', user: user %>
+      <% end %>
+    </tbody>
+  </table>
+  <% if @users.any? %>
+    <div>
+      <%= will_paginate @users, :container => false %>
+    </div>
+  <% end %>
+</div>

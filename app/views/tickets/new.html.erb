@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="col-md-6">
+    <h1 class="text-left my-3">Create new ticket</h1>
+    <%- if @errors %>
+      <h5><%= pluralize(@errors.count, 'error') %> prohibited this ticket from being saved</h5>
+      <ul>
+      <%- @errors.each do |error| %>
+        <li>
+          <%= error %>
+        </li>
+      <%- end %>
+      </ul>
+    <%- end %>
+    <%= form_for @ticket, url: user_tickets_path(current_user.id) do |f| %>
+      <div class="form-group">
+        <%= f.label :department_id %>
+        <%= f.select :department_id, @departments, {}, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, maxlength: '50', class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :note , 'Body' %>
+        <%= f.text_area :note, cols: '16', rows: '6', class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :uploads , 'Attachments' %>
+        <%= f.file_field :uploads, multiple: true, class: 'form-control-file' %>
+      </div>
+
+      <%= f.submit 'Create', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

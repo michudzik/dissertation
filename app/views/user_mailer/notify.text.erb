@@ -1,0 +1,9 @@
+Hi, <%= @user.fullname %>
+===============================================
+ 
+<%= @ticket.comments.last.user.fullname %> responded to the ticket you are watching: <%= @ticket.title %>
+Current status: <%= @ticket.status.name %>
+
+<%= link_to 'Show', ticket_url(@ticket.id) %>
+
+Have a nice day!

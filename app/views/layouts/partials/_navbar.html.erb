@@ -1,0 +1,40 @@
+<ul class="nav flex-column nav-fill border-right navbar-container">
+  <%- if user_signed_in? %>
+    <section class="pt-4">
+      <li class="nav-item">
+        <%= link_to 'Create Ticket', new_ticket_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'My Tickets', user_dashboard_path, class: 'nav-link' %>
+      </li>
+      <%- if current_user.admin? %>
+        <li class="nav-item">
+          <%= link_to 'All Tickets', show_tickets_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Users', users_path, class: 'nav-link' %>
+        </li>
+      <%- elsif current_user.it_support? %>
+      <li class="nav-item active">
+          <%= link_to 'IT Tickets', show_tickets_path, class: 'nav-link' %>
+        </li>
+      <%- elsif current_user.om_support? %>
+        <li class="nav-item active">
+          <%= link_to 'OM Tickets', show_tickets_path, class: 'nav-link' %>
+        </li>
+      <%- end %>
+    </section>
+    <section class="pt-4">
+      <li class="nav-item">
+        <%= link_to 'Edit profile', edit_user_registration_path, class: 'nav-link' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Log out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+      </li>
+    </section>
+  <%- elsif !user_signed_in? %>
+    <section class="pt-4">
+      <%= render 'devise/shared/links' %>
+    </section>
+  <%- end %>
+</ul>

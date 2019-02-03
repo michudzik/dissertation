@@ -1,0 +1,15 @@
+@import '~bootstrap/scss/bootstrap';
+@import './comment.scss';
+@import './statuses.scss';
+@import './ticket.scss';
+@import './users.scss';
+
+.main-container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 35px;
+}
+
+.navbar-container {
+  min-height: 100vh;
+}

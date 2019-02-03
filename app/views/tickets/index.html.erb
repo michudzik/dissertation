@@ -1,0 +1,71 @@
+<div class="container">
+  <h1 class="my-3">All Tickets</h1>
+
+  <section class="row">
+    <article class="nav flex-column col-md-2">
+      <a class="nav-link disabled" href="#">Results</a>
+      <%= link_to '10', show_tickets_path(number: 10, filter_param: params[:filter_param], sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to '30', show_tickets_path(number: 30, filter_param: params[:filter_param], sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to '50', show_tickets_path(number: 50, filter_param: params[:filter_param], sorted_by: params[:sorted_by]), class: 'nav-link' %>
+    </article>
+
+    <article class="nav flex-column col-md-3">
+      <a class="nav-link disabled" href="#">Status</a>
+      <%= link_to 'All', show_tickets_path(number: params[:number], filter_param: "all", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to 'Open', show_tickets_path(number: params[:number], filter_param: "open", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to 'Support response', show_tickets_path(number: params[:number], filter_param: "support_response", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to 'User response', show_tickets_path(number: params[:number], filter_param: "user_response", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+      <%= link_to 'Closed', show_tickets_path(number: params[:number], filter_param: "closed", sorted_by: params[:sorted_by]), class: 'nav-link' %>
+    </article>
+
+    <div class="col-md-4">
+      <%= render 'search_engine' %>
+    </div>
+  </section>
+
+  <table class="mt-3 table table-hover">
+    <thead>
+      <tr>
+        <th>
+          Author
+          <%= link_to show_tickets_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "user_name_desc") do %>
+            <i class="fas fa-caret-up"></i>
+          <% end %>
+          <%= link_to show_tickets_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "user_name_asc") do %>
+            <i class="fas fa-caret-down"></i>
+          <% end %>
+        </th>
+        <th>
+          Title
+          <%= link_to show_tickets_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "title_desc") do %>
+           <i class="fas fa-caret-up"></i>
+          <% end %>
+          <%= link_to show_tickets_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "title_asc") do %>
+            <i class="fas fa-caret-down"></i>
+          <% end %>
+        </th>
+        <th>
+          Department
+          <%= link_to show_tickets_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "department_it") do %>
+           <i class="fas fa-caret-up"></i>
+          <% end %>
+          <%= link_to show_tickets_path(number: params[:number], filter_param: params[:filter_param], sorted_by: "department_om") do %>
+            <i class="fas fa-caret-down"></i>
+          <% end %>
+        </th>
+        <th>Last response</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tickets.zip(@ticket_presenters).each do |ticket, ticket_presenter| %>
+        <%= render 'ticket', ticket_presenter: ticket_presenter, ticket: ticket %>
+      <% end %>
+    </tbody>
+  </table>
+  <% if @tickets.any? %>
+    <div>
+      <%= will_paginate @tickets, :container => false %>
+    </div>
+  <% end %>
+</div>

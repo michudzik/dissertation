@@ -2,12 +2,9 @@ development:
   adapter: async
 
 test:
-  adapter: async
+  adapter: test
 
 production:
-  url: redis://h:p181098545d6779bb516e8c61863ea7bb645cdea1a6a23f3b56eb0c67fab1dfd8@ec2-3-82-181-170.compute-1.amazonaws.com:32619
-  host: ec2-3-82-181-170.compute-1.amazonaws.com
-  port: 32619
-  password: p181098545d6779bb516e8c61863ea7bb645cdea1a6a23f3b56eb0c67fab1dfd8
-  inline: true
-  timeout: 1
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  channel_prefix: tickets_production

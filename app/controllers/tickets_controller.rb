@@ -60,7 +60,7 @@ class TicketsController < ApplicationController
 
       r.failure(:validate) do |schema|
         @ticket = Ticket.new(ticket_params)
-        @errors = schema.errors.map { |key, msg| "#{key.to_s.humanize} #{msg.join(',')}" }
+        @errors = schema.errors.map { |error| "#{error.path.to_s} #{error.text}" }
         Departments::List.new.call do |re|
           re.success do |departments|
             @departments = departments

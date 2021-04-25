@@ -61,7 +61,7 @@
 #   }
 
 server "staging01.binarapps.com", user: "tickets.binarlab.com", roles: %w{app db web}
-set :rvm_ruby_version, '2.7.0@tickets'
+set :rvm_ruby_version, '3.0.0@tickets'
 set :branch, 'staging'
 set :rails_env, 'production'
 set :deploy_to, '/home/tickets.binarlab.com/www/'

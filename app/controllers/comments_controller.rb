@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
       end
       r.failure(:assign_ticket) { |_| redirect_to user_dashboard_url, alert: 'Ticket not found' }
       r.failure(:closed) { |ticket| redirect_to ticket_path(ticket.id), alert: 'This ticket is closed' }
-      r.failure(:validate) { |schema| redirect_to ticket_path(schema[:ticket_id]), alert: 'Comment is empty' }
+      r.failure(:validate) { |_| redirect_to ticket_path(comment_params[:ticket_id]), alert: 'Comment is empty' }
       r.failure(:create_comment) { |_| redirect_to root_path, alert: 'Lost connection to the database' }
     end
   end

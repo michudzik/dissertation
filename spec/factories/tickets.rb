@@ -1,7 +1,7 @@
 FactoryBot.define do
-	factory :ticket do 
+	factory :ticket do
 		title	{ Faker::Name.name }
-		note	{ Faker::Lorem.sentences(3).join('') }
+		note	{ Faker::Lorem.sentences(number: 3).join('') }
 		user
 		association :department
     association :status

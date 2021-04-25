@@ -1,13 +1,9 @@
 module Tickets
-  class Validator
-    attr_reader :schema
-
-    def initialize
-      @schema = Dry::Validation.Schema do
-        required(:note).filled(max_size?: 500)
-        required(:title).filled(max_size?: 50)
-        required(:department_id).filled
-      end
+  class CreateContract < Dry::Validation::Contract
+    params do
+      required(:note).filled(max_size?: 500)
+      required(:title).filled(max_size?: 50)
+      required(:department_id).filled
     end
   end
 
@@ -18,7 +14,7 @@ module Tickets
     private
 
     def validate(ticket_params)
-      schema = Validator.new.schema.call(ticket_params)
+      schema = CreateContract.new.call(ticket_params)
       return Success(ticket_params) if schema.success?
 
       Failure(schema)

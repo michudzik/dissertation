@@ -1,13 +1,9 @@
 require 'net/smtp'
 
 module Comments
-  class Validator
-    attr_reader :schema
-
-    def initialize
-      @schema = Dry::Validation.Schema do
-        required(:body).filled
-      end
+  class CreateContract < Dry::Validation::Contract
+    params do
+      required(:body).filled
     end
   end
 
@@ -40,7 +36,7 @@ module Comments
 
     def validate(ticket)
       attr = { ticket_id: ticket.id, user_id: current_params[:user_id], body: current_params[:body] }
-      schema = Validator.new.schema.call(attr)
+      schema = CreateContract.new.call(attr)
       return Success(attr) if schema.success?
 
       Failure(schema)
